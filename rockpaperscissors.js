@@ -1,5 +1,6 @@
+// Determines the computer's choice
 function computerPlay() {
-    let computerPlayOptions = [
+    const computerPlayOptions = [
         "Rock",
         "Paper",
         "Scissors"
@@ -47,19 +48,15 @@ function playRound(playerSelection, computerSelection) {
 
 let playerPlay = prompt("Rock, Paper, or Scissors?").toLowerCase();
 const playerSelection = playerPlay;
-//const computerSelection = computerPlay();
+
 let playerScore = 0;
 let computerScore = 0;
 
-// console.log(playerSelection);
-// console.log(computerSelection);
-// console.log(playRound(playerSelection, computerSelection));
-
 function game() {
 
-    for (let i = 0; i < 5; i++) {
-        const computerSelection = computerPlay();
-        console.log(i);
+    for (let i = 1; i < 6; i++) {
+        const computerSelection = computerPlay(); // This allows the computer to make a different choice for each round. 
+        console.log("Round " + i);
         console.log(playRound(playerSelection, computerSelection));
     }
     console.log("Player's score " + playerScore);
@@ -71,7 +68,6 @@ function game() {
     } else if (playerScore === computerScore) {
         console.log("Draw game")
     }
-    
 }
 
-game();
+game(); // Starts the game
