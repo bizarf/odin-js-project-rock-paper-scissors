@@ -76,23 +76,74 @@ function game() {
 }
 
 // game(); // Starts the game
-const roundResult = document.querySelector("#roundResult")
+const roundResult = document.querySelector('#roundResult');
+const totalScore = document.querySelector('#gameScore');
+const winnerText = document.querySelector('#winnerDeclaration');
 
+// Reset button function that will appear after the game ends
+const resetOption = document.querySelector('#resetOption');
+const resetBtn = document.createElement('button');
+resetBtn.addEventListener('click', () => {
+    playerScore = 0;
+    computerScore = 0;
+    document.getElementById("rockBtn").disabled = false;
+    document.getElementById("paperBtn").disabled = false;
+    document.getElementById("scissorsBtn").disabled = false;
+    roundResult.textContent = "";
+    totalScore.textContent = "";
+    winnerText.textContent = "";
+    resetOption.removeChild(resetBtn);
+})
+
+gameScore.setAttribute('style', 'white-space: pre;'); // CSS style to allow a new line
+
+// rock button
 const playerRock = document.querySelector('#rockBtn');
 playerRock.addEventListener('click', () => {
     // console.log(playRound("rock", computerPlay()))
-
-    roundResult.textContent = (playRound("rock", computerPlay()))
+    roundResult.textContent = (playRound("rock", computerPlay()));
+    totalScore.textContent = (`Player's score: ${playerScore} \r\n`);
+    totalScore.textContent += (`Computer 's score: ${computerScore}`);
+    scoreCheck();
 })
 
+// paper button
 const playerPaper = document.querySelector('#paperBtn');
 playerPaper.addEventListener('click', () => {
     // console.log(playRound("paper", computerPlay()))
-    roundResult.textContent = (playRound("paper", computerPlay()))
+    roundResult.textContent = (playRound("paper", computerPlay()));
+    totalScore.textContent = (`Player's score: ${playerScore} \r\n`);
+    totalScore.textContent += (`Computer 's score: ${computerScore}`);
+    scoreCheck();
 })
 
+// scissors button
 const playerScissors = document.querySelector('#scissorsBtn');
 playerScissors.addEventListener('click', () => {
     // console.log(playRound("scissors", computerPlay()))
-    roundResult.textContent = (playRound("scissors", computerPlay()))
+    roundResult.textContent = (playRound("scissors", computerPlay()));
+    totalScore.textContent = (`Player's score: ${playerScore} \r\n`);
+    totalScore.textContent += (`Computer 's score: ${computerScore}`);
+    scoreCheck();
 })
+
+// checks the total score
+function scoreCheck() {
+    if (playerScore === 5) {
+        winnerText.textContent = "You win!";
+        document.getElementById("rockBtn").disabled = true;
+        document.getElementById("paperBtn").disabled = true;
+        document.getElementById("scissorsBtn").disabled = true;
+        resetBtn.classList.add("resetBtn");
+        resetBtn.textContent = "Reset Game";
+        resetOption.appendChild(resetBtn);
+    } else if (computerScore === 5) {
+        winnerText.textContent = "You lose";
+        document.getElementById("rockBtn").disabled = true;
+        document.getElementById("paperBtn").disabled = true;
+        document.getElementById("scissorsBtn").disabled = true;
+        resetBtn.classList.add("resetBtn");
+        resetBtn.textContent = "Reset Game";
+        resetOption.appendChild(resetBtn);
+    }
+}
