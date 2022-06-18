@@ -1,18 +1,7 @@
 const winResult = "You win!";
 const loseResult = "You lose!";
 const drawResult = "It's a draw!";
-
-// Determines the computer's choice
-function computerPlay() {
-    const computerPlayOptions = [
-        "Rock",
-        "Paper",
-        "Scissors"
-    ];
-
-    let randomComputerPlay = computerPlayOptions[Math.floor(Math.random() * computerPlayOptions.length)];
-    return randomComputerPlay;
-}
+let playerDecision = "";
 
 function playRound(playerSelection, computerSelection) {
     // player chooses rock
@@ -79,6 +68,7 @@ function game() {
 const roundResult = document.querySelector('#roundResult');
 const totalScore = document.querySelector('#gameScore');
 const winnerText = document.querySelector('#winnerDeclaration');
+const playersChoice = document.querySelector('#bothPlayerChoice');
 
 // Reset button function that will appear after the game ends
 const resetOption = document.querySelector('#resetOption');
@@ -89,6 +79,7 @@ resetBtn.addEventListener('click', () => {
     document.getElementById("rockBtn").disabled = false;
     document.getElementById("paperBtn").disabled = false;
     document.getElementById("scissorsBtn").disabled = false;
+    playersChoice.textContent = "";
     roundResult.textContent = "";
     totalScore.textContent = "";
     winnerText.textContent = "";
@@ -100,7 +91,7 @@ gameScore.setAttribute('style', 'white-space: pre;'); // CSS style to allow a ne
 // rock button
 const playerRock = document.querySelector('#rockBtn');
 playerRock.addEventListener('click', () => {
-    // console.log(playRound("rock", computerPlay()))
+    playerDecision = "Rock"
     roundResult.textContent = (playRound("rock", computerPlay()));
     totalScore.textContent = (`Player's score: ${playerScore} \r\n`);
     totalScore.textContent += (`Computer 's score: ${computerScore}`);
@@ -110,7 +101,7 @@ playerRock.addEventListener('click', () => {
 // paper button
 const playerPaper = document.querySelector('#paperBtn');
 playerPaper.addEventListener('click', () => {
-    // console.log(playRound("paper", computerPlay()))
+    playerDecision = "Paper"
     roundResult.textContent = (playRound("paper", computerPlay()));
     totalScore.textContent = (`Player's score: ${playerScore} \r\n`);
     totalScore.textContent += (`Computer 's score: ${computerScore}`);
@@ -120,7 +111,7 @@ playerPaper.addEventListener('click', () => {
 // scissors button
 const playerScissors = document.querySelector('#scissorsBtn');
 playerScissors.addEventListener('click', () => {
-    // console.log(playRound("scissors", computerPlay()))
+    playerDecision = "Scissors"
     roundResult.textContent = (playRound("scissors", computerPlay()));
     totalScore.textContent = (`Player's score: ${playerScore} \r\n`);
     totalScore.textContent += (`Computer 's score: ${computerScore}`);
@@ -146,4 +137,17 @@ function scoreCheck() {
         resetBtn.textContent = "Reset Game";
         resetOption.appendChild(resetBtn);
     }
+}
+
+// Determines the computer's choice
+function computerPlay() {
+    const computerPlayOptions = [
+        "Rock",
+        "Paper",
+        "Scissors"
+    ];
+
+    let randomComputerPlay = computerPlayOptions[Math.floor(Math.random() * computerPlayOptions.length)];
+    playersChoice.textContent = (`You chose ${playerDecision}. The computer chose ${randomComputerPlay}.`);
+    return randomComputerPlay;
 }
